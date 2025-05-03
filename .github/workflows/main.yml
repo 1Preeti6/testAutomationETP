@@ -32,7 +32,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "❌ Selenium Test Failed"
+          subject: "Selenium Test Failed"
           body: |
             Selenium tests have failed in your GitHub Actions pipeline.
             Check the logs here: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
