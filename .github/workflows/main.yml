@@ -25,7 +25,7 @@ jobs:
           echo "exit_code=$?" >> $GITHUB_OUTPUT
 
       - name: Send Email Notification on Failure
-        if: steps.run-tests.outputs.exit_code != '0'
+        if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
