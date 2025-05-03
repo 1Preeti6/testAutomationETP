@@ -37,5 +37,5 @@ jobs:
             Selenium tests have failed in your GitHub Actions pipeline.
             Check the logs here: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-          to: your-email@example.com
-          from: GitHub CI Bot <your-email@example.com>
+          to: preetilakhera089@gmail.com
+          from: GitHub CI Bot preetilakhera089@gmail.com
