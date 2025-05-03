@@ -1,0 +1,41 @@
+name: main
+
+on: [push, pull_request]
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Selenium Tests
+        id: run-tests
+        run: |
+          set +e  # Continue even if test fails
+          python -m unittest discover > test_results.log
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Send Email Notification on Failure
+        if: steps.run-tests.outputs.exit_code != '0'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "❌ Selenium Test Failed"
+          body: |
+            Selenium tests have failed in your GitHub Actions pipeline.
+            Check the logs here: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          to: your-email@example.com
+          from: GitHub CI Bot <your-email@example.com>
