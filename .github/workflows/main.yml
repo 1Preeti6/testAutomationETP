@@ -21,7 +21,6 @@ jobs:
         id: run-tests
         run: |
           set +e  # Continue even if test fails
-          hello
           python -m unittest discover > test_results.log
           echo "exit_code=$?" >> $GITHUB_OUTPUT
 
